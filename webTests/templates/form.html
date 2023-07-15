@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ответы на гугл-форму</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'form/form.css' %}">
+</head>
+<body>
+
+<div class="qa">
+    <h2>Общая информация</h2>
+    <p>Нейросеть: {{ ai_model }}</p>
+    <p>Название гугл-формы: {{ title }}</p>
+    <p>ID гугл-формы: {{ form_id }}</p>
+    <h3>Вопросы:</h3>
+    <dl>
+        {% for x, y in answers %}
+            <dt>
+                {{ x }}
+            </dt>
+            <dd>
+                {{ y }}
+            </dd>
+        {% endfor %}
+    </dl>
+    <table>
+        <tr>
+            <td>
+                <form method="get" action="{% url 'home' %}">
+                    <button type="submit">Назад</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="{% url 'download' %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="answers" name="answers" value="{{ answers }}">
+                    <input type="hidden" id="form_id" name="form_id" value="{{ form_id }}">
+                    <input type="hidden" id="title" name="title" value="{{ title }}">
+                    <input type="hidden" id="ai_model" name="ai_model" value="{{ ai_model }}">
+                    <button type="submit">Скачать</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

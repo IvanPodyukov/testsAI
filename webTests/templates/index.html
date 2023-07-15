@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Веб-приложение для ответов на тесты в гугл-формах</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+</head>
+<body>
+<form action="{% url 'form' %}" method="post">
+    {% csrf_token %}
+    <label for="form_id">Введите form_id: </label>
+    <input id="form_id" type="text" name="form_id">
+
+    <label for="ai_model">Выберите нейросеть:</label>
+    <select id="ai_model" name="ai_model">
+        <option value="fred_t5_ru_turbo_alpaca">fred_t5_ru_turbo_alpaca</option>
+        <option value="rugpt3large_based_on_gpt2">rugpt3large_based_on_gpt2</option>
+        <option value="falcon-7b-instruct">falcon-7b-instruct</option>
+    </select>
+
+    <button type="submit">Получить ответы</button>
+</form>
+
+</body>
+</html>
